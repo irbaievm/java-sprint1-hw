@@ -15,8 +15,14 @@ public class Main {
                 tracker.printStatic();
             } else if (command.equals("3")) {
                 System.out.println("Введите количество шагов для новой цели: ");
-                int newGoal = scanner.nextInt();
-                tracker.newGoal(newGoal);
+
+                String newGoal = scanner.next();
+                if (newGoal.matches("[0-9]+")) {
+                    tracker.newGoal(Integer.parseInt(newGoal));
+                } else {
+                    System.out.println("Неправильно указано число, попробуйте снова");
+                }
+
             } else if (command.equals("0")) {
                 break;
             } else {

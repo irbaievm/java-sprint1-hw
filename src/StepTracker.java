@@ -31,8 +31,9 @@ public class StepTracker {
                 String month = scanner.next();
                 if (month.equals("0")) {
                     break;
-                } else if (month.matches("[1-9]+")) {
-                    System.out.println("Общее количество шагов за указанный месяц = " + totalSteps(Integer.parseInt(month)));
+                } else if (month.matches("[0-9]+")) {
+                    System.out.println("Общее количество шагов за указанный месяц = " +
+                            totalSteps(Integer.parseInt(month)));
                 } else {
                     System.out.println("Ошибка, попробуйте еще раз");
                 }
@@ -43,8 +44,9 @@ public class StepTracker {
                 String month = scanner.next();
                 if (month.equals("0")) {
                     break;
-                } else if (month.matches("[1-9]+")) {
-                    System.out.println("Среднее количество шагов за указанный месяц = " + avgStepMount(Integer.parseInt(month)));
+                } else if (month.matches("[0-9]+")) {
+                    System.out.println("Среднее количество шагов за указанный месяц = " +
+                            avgStepMount(Integer.parseInt(month)));
                 } else {
                     System.out.println("Ошибка, попробуйте снова");
                 }
@@ -53,20 +55,22 @@ public class StepTracker {
                 String month = scanner.next();
                 if (month.equals("0")) {
                     break;
-                } else if (month.matches("[1-9]+")) {
+                } else if (month.matches("[0-9]+")) {
                     int totalSteps = totalSteps(Integer.parseInt(month));
-                    System.out.println("Количество пройденных км за указанный месяц = " + convert.convertToKm(totalSteps));
+                    System.out.println("Количество пройденных км за указанный месяц = "
+                            + convert.convertToKm(totalSteps));
                 } else {
                     System.out.println("Ошибка, попробуйте снова");
                 }
             } else if (select.equals("6")) {
                 printMenu();
-                String month = scanner.next(); /*по коментарию: тут пользователь вводит именно месяц, т.е передаем месяц в метод totalSteps и сохраняем в totalSteps */
+                String month = scanner.next();
                 if (month.equals("0")) {
                     break;
-                } else if (month.matches("[1-9]+")) {
+                } else if (month.matches("[0-9]+")) {
                     int totalSteps = totalSteps(Integer.parseInt(month));
-                    System.out.println("Количество сожжённых килокалорий за указанный месяц = " + convert.convertToKl(totalSteps));
+                    System.out.println("Количество сожжённых килокалорий за указанный месяц = "
+                            + convert.convertToKl(totalSteps));
                 } else {
                     System.out.println("Ошибка, попробуйте снова");
                 }
@@ -75,8 +79,9 @@ public class StepTracker {
                 String month = scanner.next();
                 if (month.equals("0")) {
                     break;
-                } else if (month.matches("[1-9]+")) {
-                    System.out.println("Лучшая серия за указанный месяц = " + bestSeries(Integer.parseInt(month)));
+                } else if (month.matches("[0-9]+")) {
+                    System.out.println("Лучшая серия за указанный месяц = "
+                            + bestSeries(Integer.parseInt(month)));
                 } else {
                     System.out.println("Ошибка, попробуйте снова");
                 }
@@ -91,20 +96,25 @@ public class StepTracker {
             String month = scanner.next();
             if (month.equals("0")) {
                 break;
-            } else if (Integer.parseInt(month) < 0 || Integer.parseInt(month) > 12) {
-                System.out.println("Неправильно указан месяц, попробуйте еще раз");
-                break;
-            }
-            System.out.println("За какое число Вы хотите добавить статистику ?");
-            int day = scanner.nextInt();
 
-            System.out.println("Укажите количество пройденных шагов в день");
-            int cntStepDay = scanner.nextInt();
-            if (Integer.parseInt(month) > 0 && Integer.parseInt(month) <= 12) {
-                daysStep[Integer.parseInt(month) - 1][day - 1] = cntStepDay;
-                System.out.println("Информация добавлена");
+            } else if (month.matches("[0-9]+")) {
+                System.out.println("За какое число Вы хотите добавить статистику ?");
+                String day = scanner.next();
+                if (day.matches("[0-9]+")) {
+                    System.out.println("Укажите количество пройденных шагов в день");
+                    String cntStepDay = scanner.next();
+                    if (cntStepDay.matches("[0-9]+")) {
+                        daysStep[Integer.parseInt(month) - 1][Integer.parseInt(day) - 1] =
+                                Integer.parseInt(cntStepDay);
+                        System.out.println("Информация добавлена");
+                    } else {
+                        System.out.println("Ошибка, неправильно указано число. Попробуйте снова");
+                    }
+                } else {
+                    System.out.println("Ошибка, неправильно указан день. Попробуйте снова");
+                }
             } else {
-                System.out.println("Ошибка. Попробуйте указать снова");
+                System.out.println("Ошибка, неправильно указан месяц. Попробуйте снова");
             }
         }
     }
@@ -117,7 +127,7 @@ public class StepTracker {
             String month = scanner.next();
             if (month.equals("0")) {
                 break;
-            } else if (month.matches("[1-9]+")) {
+            } else if (month.matches("[0-9]+")) {
                 for (int i = 0; i < 30; i++) {
                     System.out.print(i + 1 + " день: " + daysStep[Integer.parseInt(month) - 1][i]);
                     if (i < 30) {
@@ -149,7 +159,7 @@ public class StepTracker {
             int maxCnt = 0;
             if (month.equals("0")) {
                 break;
-            } else if (month.matches("[1-9]+")) {
+            } else if (month.matches("[0-9]+")) {
                 for (int i = 0; i < 30; i++) {
                     if (daysStep[Integer.parseInt(month) - 1][i] > maxCnt) {
                         maxCnt = daysStep[Integer.parseInt(month) - 1][i];
@@ -220,7 +230,8 @@ public class StepTracker {
         System.out.println("4. Среднее количество шагов пройденных в месяце;");
         System.out.println("5. Количество пройденных КМ за месяц");
         System.out.println("6. Количество сожжённых килокалорий за месяц");
-        System.out.println("7. Лучшая серия: максимальное количество подряд идущих дней, в течение которых количество шагов за день было выше целевого");
+        System.out.println("7. Лучшая серия: максимальное количество подряд идущих дней, " +
+                "в течении которых количество шагов за день было выше целевого");
         System.out.println("0. Для возврата в предыдущее меню;");
     }
 }
